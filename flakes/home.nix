@@ -40,7 +40,6 @@
     yq-go
     eza
     fzf
-    fish
     neovim
     kitty
     bat
@@ -106,7 +105,7 @@
     };
   };
 
-  program.fish = {
+  programs.fish = {
     enable = true;
     interactiveShellInit = ''
       set fish_greeting
