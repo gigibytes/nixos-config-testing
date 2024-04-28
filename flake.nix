@@ -27,7 +27,7 @@
 	    home-manager.useGlobalPkgs = true;
 	    home-manager.useUserPackages = true;
 
-	    home-manager.users.gigi = import ./home.nix;
+	    home-manager.users.gigi = import ./flakes/home.nix;
 
 	  }
         ];
