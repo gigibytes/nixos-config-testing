@@ -1,0 +1,121 @@
+#+title: NixOS Wishlist
+
+Maybe this is the way to learn NixOS: just a bunch of research beforehand to start to understand where to find things, how to piece them together, etc.
+
+This is me trying to do that so I can have a smoother switch.
+
+* Automatic Updates
+Ideally: as easy or easier than on Fedora, meaning I don't really want to have to make my own systemd service or somesuch.
+snippet from: https://nixos.wiki/wiki/Automatic_system_upgrades
+
+#+begin_src nix
+system.autoUpgrade = {
+  enable = true;
+  flake = inputs.self.outPath;
+  flags = [
+    "--update-input"
+    "nixpkgs"
+    "-L" # print build logs
+  ];
+  dates = "02:00";
+  randomizedDelaySec = "45min";
+};
+#+end_src
+
+* Data Backups
+Again, at least as easy as usual (create systemd service), but would be really cool if it were embedded in my config and "just worked" after that.
+
+This is HUGE: I had no idea about this, even despite using Nix for a few weeks before lol...
+** NixOS Options: https://search.nixos.org/options
+So you can search the options that are available in nix files. So I want to backup my system...let's search ==backup==. There are lots of options, but what I am hoping for appears: ==services.restic.backups== !
+
+Similarly, if you search ==system update==, you can find your way to ==system.autoUpgrade==.
+
+Example from: https://felschr.com/blog/nixos-restic-backups
+
+#+begin_src nix
+services.restic.backups.full = {
+  initialize = true;
+  repository = "SOME-REPO";
+  timeConfig.OnCalendar = "daily";
+  paths = [ "/etc/nixos" "/var/lib/" "/home" ];
+  extraBackupArgs = let
+    ignorePatterns = [
+      "/var/lib/systemd"
+      "/var/lib/containers"
+      "/var/lib/flatpak"
+      "/home/*/.local/share/Trash"
+      "/home/*/.cache"
+      "/home/*/Downloads"
+      "/home/*/.npm"
+      "/home/*/Games"
+      "/home/*/.local/share/containers"
+      "/home/felschr/dev" # backup ~/dev-backup instead
+      ".cache"
+      ".tmp"
+      ".log"
+      ".Trash"
+    ];
+    ignoreFile = builtins.toFile "ignore"
+      (foldl (a: b: a + "\n" + b) "" ignorePatterns);
+  in [ "--exclude-file=${ignoreFile}" ];
+  pruneOpts = [
+    "--keep-daily 7"
+    "--keep-weekly 4"
+    "--keep-monthly 3"
+    "--keep-yearly 1"
+  ];
+};
+
+#+end_src
+
+* VPN Config
+Would be nice for autoconnect and reconnect to work well.
+
+*** Let's see where we get if we search NixOS Options for it...
+Search param: ==wireguard==
+
+==networking.wireguard.enable== might be what I want, but it has a note that ==systemd.network.netdevs== is better maintained and should be used instead.
+
+*** Interesting...I'm just going to look for an example.
+Example blog post: https://alberand.com/nixos-wireguard-vpn.html
+
+Example from the NixOS wiki @ https://nixos.wiki/wiki/WireGuard:
+**** This example uses wg-quick, but like the above blog mentions, there are options that use NetworkManager or systemd-networkd
+#+begin_src nix
+{
+  ...
+  networking.wg-quick.interfaces = {
+    wg0 = {
+      address = [ "10.0.0.2/24" "fdc9:281f:04d7:9ee9::2/64" ];
+      dns = [ "10.0.0.1" "fdc9:281f:04d7:9ee9::1" ];
+      privateKeyFile = "/root/wireguard-keys/privatekey";
+
+      peers = [
+        {
+          publicKey = "{server public key}";
+          presharedKeyFile = "/root/wireguard-keys/preshared_from_peer0_key";
+          allowedIPs = [ "0.0.0.0/0" "::/0" ];
+          endpoint = "{server ip}:51820";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+  };
+  ...
+}
+#+end_src
+* General system config:
+** Window Manager + Bar + Rofi
+** Packages
+** Flatpak and Snaps?
+** Emacs
+** Fish
+** Starship prompt and/or fish prompt plugin
+** PATH?
+Not sure how this will play out.
+** Fonts
+** Term emulator (kitty)
+I found this site--MyNixOS--which has the home-manager options for kitty.
+My config is super simple so this should work great. There's also a section to just add text that will be added to kitty.conf.
+https://mynixos.com/home-manager/option/programs.kitty.settings
