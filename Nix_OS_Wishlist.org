@@ -160,6 +160,7 @@ Currently the system is barebones but in a state closer to what I am looking for
 ** TODO Next steps:
 *** Install Emacs + Configure
 This is a big one.
+*** Configure Fish as Interactive Shell
 *** Check if Gnome desktop programs are left over
 *** Improve Sway Config
 Currently I have to log into a tty and then manually start sway.
