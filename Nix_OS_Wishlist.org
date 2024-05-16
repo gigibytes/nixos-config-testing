@@ -176,9 +176,11 @@ Nvim complained about not having a C compiler, installing zig is usually my move
 - 1Password
   + 1Password CLI/SSH Agent
 - Vagrant
-***  Install More Utils
+*** Install More Utils
 - exa
 - Programs like ==locate== aren't present on the system, maybe I have to install coreutils?
+*** Wallpaper?
+Find a way to get a decent wallpaper automatically configured.
 
 * Roadmap
 Do everything like a basic bitch in configuration.nix (as far as possible) -> Start using home-manager -> Enable flakes -> Modularize config into flakes
