@@ -114,8 +114,13 @@
     #  thunderbird
 	stow
 	starship
+        #TODO emacs (doom)
+        brave
     ];
   };
+
+
+  #TODO flatpaks?
 
   fonts.packages = with pkgs; [
     ibm-plex
@@ -124,7 +129,6 @@
     nerdfonts
   ];
 
-  programs.fish.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -132,12 +136,18 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    fishPlugins.pure
     wget
     git
-    fishPlugins.pure
+    zoxide
+    #TODO vagrant?
+    
   ];
 
+  programs.fish.enable = true;
+
+  programs.neovim.defaultEditor = true;
+  programs.neovim.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -148,6 +158,8 @@
 
   # List services that you want to enable:
 
+  #TODO configure backups w/ restic
+  #services.restic.backups...
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
