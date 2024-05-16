@@ -1,0 +1,16 @@
+#+title: What I've Learned
+
+TIL log + helpful resources reference for Nix(mainly NixOS right now)
+
+* Documentation/Help Sources
+** ==nix help==
+Get to the manual within NixOS
+** Option Searches
+Find what is configurable and how to do it.
+- NixOS official site option search
+- Home Manager: https://home-manager-options.extranix.com/
+- MyNixOs
+* Commands
+** ==nix show flake==
+Get the names that you can use when trying to rebuild from a flake. Example:
+*** ==nixos-rebuild switch --flake /etc/nixos#<name>==

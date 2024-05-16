@@ -4,6 +4,8 @@ Maybe this is the way to learn NixOS: just a bunch of research beforehand to sta
 
 This is me trying to do that so I can have a smoother switch.
 
+Started as a small list but I guess this is also now a log of me trying to make everything happen.
+
 * Automatic Updates
 Ideally: as easy or easier than on Fedora, meaning I don't really want to have to make my own systemd service or somesuch.
 snippet from: https://nixos.wiki/wiki/Automatic_system_upgrades
@@ -184,3 +186,6 @@ Find a way to get a decent wallpaper automatically configured.
 
 * Roadmap
 Do everything like a basic bitch in configuration.nix (as far as possible) -> Start using home-manager -> Enable flakes -> Modularize config into flakes
+
+
+---
