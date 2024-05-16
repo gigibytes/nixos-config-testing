@@ -162,6 +162,8 @@ Currently the system is barebones but in a state closer to what I am looking for
 This is a big one.
 *** Configure Fish as Interactive Shell
 *** Check if Gnome desktop programs are left over
+*** Configure VPN Autoconnect/Auto-reconnect
+Disconnecting is less necessary/important because it's pretty rare, I can do it manually for now.
 *** Improve Sway Config
 Currently I have to log into a tty and then manually start sway.
 - I would like a greeter + autostart.
