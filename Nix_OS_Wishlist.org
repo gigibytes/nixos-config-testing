@@ -116,6 +116,69 @@ Example from the NixOS wiki @ https://nixos.wiki/wiki/WireGuard:
 Not sure how this will play out.
 ** Fonts
 ** Term emulator (kitty)
-I found this site--MyNixOS--which has the home-manager options for kitty.
+I found this site--MyNixOS--which has some documentation, including the home-manager options for kitty.
 My config is super simple so this should work great. There's also a section to just add text that will be added to kitty.conf.
 https://mynixos.com/home-manager/option/programs.kitty.settings
+
+---
+
+* Reviving My NixOS-Testing VM
+** Testing:
+*** Attempt @ cloning my config (-> VM)
+- Had to get git installed
+- sudo rm -rf'd the /etc/nixos folder
+- Ran ==nixos-generate-config== to get the hardware config file
+- Copied all the files but hardwareconfig into the /etc/nixos folder and ran ==nixos-rebuild switch==
+
+**** How to see the name you should use when building system from flake:
+==nix show flake /etc/nixos==
+My config is called ==nixos-testing==
+then I could build with this syntax: ==nixos-rebuild switch --flake /etc/nixos#nixos-testing==
+
+**** systemd-boot/EFI issue in VM
+Think this is because of the systemd-boot line from copied config. Oops. Not finding a clear answer to this, cutting my losses and switching to bare metal on a PC that I will actually run Nix on.
+
+* Bare-Metal (again)
+Found a post and copied some of the config after starting fresh from a GNOME install.
+Super helpful! Sway is finally working. https://gist.github.com/kborling/76805ade81ac5bfdd712df294208c878
+
+* Configuring for real:
+First thing I had to do was change the $term var in sway's config file to kitty, from foot. I thought it was broken until I got into /etc/sway and realized. In hindsight I should have just installed foot at first and then removed it so I would at least have been able to open a terminal.
+1. Starting a git repo locally, so I can track changes without bothering with signing in for now to be able to push.
+2. I'm going to pull down my dotfiles first.
+3. Installing Stow
+4. Got dotfiles for bash, kitty, sway, rofi, and waybar restored.
+5. Added Rec Mono font. Also it's quite nice that nerdfonts is just a package. So basically all the monospace fonts I want are already here.
+6. Edited package list a bit more and switched out Firefox in favor of Brave.
+
+   Stopping here for now.
+
+* Status
+Currently the system is barebones but in a state closer to what I am looking for. I'm sure there's a couple dozen more things to do though.
+** TODO Next steps:
+*** Install Emacs + Configure
+This is a big one.
+*** Check if Gnome desktop programs are left over
+*** Improve Sway Config
+Currently I have to log into a tty and then manually start sway.
+- I would like a greeter + autostart.
+- I have no idea if swayidle works rn.
+- Swaylock is fine for now but I would prefer either something else or to customize it so it isn't blinding white lol
+- Sway windows have no gaps, and waybar doesn't seem very transparent. That's not how it is on my laptop so it's something to look into.
+*** Install Zig?
+Nvim complained about not having a C compiler, installing zig is usually my move lol.
+*** Install More Programs (potentially more complex)
+- Docker
+- VS Code
+- Logseq
+- Freetube
+- Bitwarden
+- 1Password
+  + 1Password CLI/SSH Agent
+- Vagrant
+***  Install More Utils
+- exa
+- Programs like ==locate== aren't present on the system, maybe I have to install coreutils?
+
+* Roadmap
+Do everything like a basic bitch in configuration.nix (as far as possible) -> Start using home-manager -> Enable flakes -> Modularize config into flakes
