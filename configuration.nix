@@ -129,7 +129,7 @@
   ];
 
   # Docker Install
-  virtualization.docker.enable = true;
+  virtualisation.docker.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
