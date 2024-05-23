@@ -109,7 +109,7 @@
   users.users.gigi = {
     isNormalUser = true;
     description = "GiGi";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.fish; #attempt to set fish as my interactive shell. idk if it does this properly--the wiki page doesn't even mention the shell option.
     packages = with pkgs; [
     #  thunderbird
@@ -117,11 +117,9 @@
 	starship
         #TODO emacs (doom)
         brave
+	
     ];
   };
-
-
-  #TODO flatpaks?
 
   fonts.packages = with pkgs; [
     ibm-plex
@@ -130,6 +128,8 @@
     nerdfonts
   ];
 
+  # Docker Install
+  virtualization.docker.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -142,8 +142,16 @@
     zig
     git
     zoxide
+    eza
     #TODO vagrant?
-    
+    # GUI programs
+    logseq
+    vscode
+    freetube
+    _1password-gui-beta
+    _1password #cli
+    bitwarden
+    emacs
   ];
 
   programs.fish.enable = true;
