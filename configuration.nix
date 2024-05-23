@@ -110,6 +110,7 @@
     isNormalUser = true;
     description = "GiGi";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.fish; #attempt to set fish as my interactive shell. idk if it does this properly--the wiki page doesn't even mention the shell option.
     packages = with pkgs; [
     #  thunderbird
 	stow
