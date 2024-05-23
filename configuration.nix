@@ -139,6 +139,7 @@
   environment.systemPackages = with pkgs; [
     fishPlugins.pure
     wget
+    zig
     git
     zoxide
     #TODO vagrant?
