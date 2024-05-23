@@ -157,35 +157,50 @@ First thing I had to do was change the $term var in sway's config file to kitty,
 
 * Status
 Currently the system is barebones but in a state closer to what I am looking for. I'm sure there's a couple dozen more things to do though.
-** TODO Next steps:
-*** Install Emacs + Configure
+** Next steps:
+*** TODO Install Emacs + Configure
 This is a big one.
-*** Configure Fish as Interactive Shell
-*** Check if Gnome desktop programs are left over
-*** Configure VPN Autoconnect/Auto-reconnect
+Have seen advice to just install it and use doom script imperatively later.
+Added emacs to my package list...unsure about doom part still. I am going to proceed with home-manager first.
+*** DONE Configure Fish as Interactive Shell
+This I did by using the users.users.gigi.shell option:
+=shell = pkgs.fish;=
+*** HOLD Auto-system/package updates
+searching the options...there's a channel option. I should set this to unstable, but I want to also /install/ from unstable too.
+
+*** TODO Configure VPN Autoconnect/Auto-reconnect
+May just be a matter of config'ing the systemd service i have now, will check the links i saved.
 Disconnecting is less necessary/important because it's pretty rare, I can do it manually for now.
-*** Improve Sway Config
+*** STRT Switch to unstable channel
+Oddly, it's not that easy to just declare the channel you wnat to use. There's a SO post explaining something that worked though. Question 48831392
+*** TODO Improve Sway Config
 Currently I have to log into a tty and then manually start sway.
-- I would like a greeter + autostart.
-- I have no idea if swayidle works rn.
-- Swaylock is fine for now but I would prefer either something else or to customize it so it isn't blinding white lol
-- Sway windows have no gaps, and waybar doesn't seem very transparent. That's not how it is on my laptop so it's something to look into.
-*** Install Zig?
+**** I would like a greeter + autostart.
+**** I have no idea if swayidle works rn.
+**** Swaylock is fine for now but I would prefer either something else or to customize it so it isn't blinding white lol
+**** Sway windows have no gaps. That's not how it is on my laptop so it's something to look into.
+*** DONE Install Zig?
 Nvim complained about not having a C compiler, installing zig is usually my move lol.
-*** Install More Programs (potentially more complex)
+*** HOLD Set Brave as default browser?
+Appears to be something I need Home Manager for.
+Might actually switch back to FF if it has a better configuration story, which it looks like it does on Nix/Home Manager.
+*** DONE Install More Programs (potentially more complex)
 - Docker
 - VS Code
 - Logseq
 - Freetube
 - Bitwarden
 - 1Password
-  + 1Password CLI/SSH Agent
-- Vagrant
-*** Install More Utils
-- exa
+  + 1Password CLI/SSH AgentVagrant
+*** HOLD Install Vagrant...can I customize the provider (vmware?)
+*** TODO Install More Utils
 - Programs like ==locate== aren't present on the system, maybe I have to install coreutils?
-*** Wallpaper?
+
+*** HOLD Wallpaper?
 Find a way to get a decent wallpaper automatically configured.
+Probly need home manager.
+*** HOLD Set Kitty theme
+Home manager again: programs.kitty.theme
 
 * Roadmap
 Do everything like a basic bitch in configuration.nix (as far as possible) -> Start using home-manager -> Enable flakes -> Modularize config into flakes

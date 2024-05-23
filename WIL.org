@@ -14,3 +14,5 @@ Find what is configurable and how to do it.
 ** ==nix show flake==
 Get the names that you can use when trying to rebuild from a flake. Example:
 *** ==nixos-rebuild switch --flake /etc/nixos#<name>==
+** ==nixos-generate-config==
+If you need to generate a new hardware-configuration.nix and/org configuration.nix file.
