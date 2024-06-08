@@ -156,35 +156,68 @@ First thing I had to do was change the $term var in sway's config file to kitty,
    Stopping here for now.
 
 * Status
-Currently the system is barebones but in a state closer to what I am looking for. I'm sure there's a couple dozen more things to do though.
-** Next steps:
-*** TODO Install Emacs + Configure
+** Update 2024-06-08
+Kind of starting over with the standard config here: https://github.com/Misterio77/nix-starter-configs/blob/main/standard/nixos/configuration.nix
+
+*** Next steps:
+**** TODO Install Emacs + Configure
 This is a big one.
 Have seen advice to just install it and use doom script imperatively later.
 Added emacs to my package list...unsure about doom part still. I am going to proceed with home-manager first.
-*** DONE Configure Fish as Interactive Shell
+*I can enable programs.emacs and services.emacs via HomeManager*
+**** TODO Config for laptop and desktop
+The most sane way to do this for me feels like: just configure them separately using a similar base, then i can 'factor out' the common stuff and merge them. Otherwise it's just another big question that I have to look into rather than just getting started again.
+**** TODO Configure Fish as Interactive Shell
 This I did by using the users.users.gigi.shell option:
 =shell = pkgs.fish;=
-*** HOLD Auto-system/package updates
+**** TODO Auto-system/package updates
+https://search.nixos.org/options?channel=23.11&show=system.autoUpgrade.enable&from=0&size=50&sort=relevance&type=packages&query=system+upgrade
 searching the options...there's a channel option. I should set this to unstable, but I want to also /install/ from unstable too.
+**** TODO Enable Home Manager/Switch from configuration.nix to starter config
+Interestingly I am back to the channel problem. I have to enable a repo as a channel with the name home-manager..hm.
+So I have to figure out how to declare both =nixpkgs unstable= and =home-manager= channels
+- Managed to do the home-manager one.
+Don't know how I'm supposed to know the state version used unless i use 23.11, so I'm using that one.
+Does home-manager replace users.users.gigi? No idea.
 
-*** TODO Configure VPN Autoconnect/Auto-reconnect
-May just be a matter of config'ing the systemd service i have now, will check the links i saved.
-Disconnecting is less necessary/important because it's pretty rare, I can do it manually for now.
-*** STRT Switch to unstable channel
-Oddly, it's not that easy to just declare the channel you wnat to use. There's a SO post explaining something that worked though. Question 48831392
-*** TODO Improve Sway Config
+***** Okay, starting overish cause I am confused.
+Goal/method: enable Home-manager as a NixOS module. So I must do this: https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module
+AND because I want/need to use flakes, I will also do this: https://discourse.nixos.org/t/set-up-nixos-home-manager-via-flake/29710/2
+
+I found a blog post and I guess I kind of have to do this? Which might mean that I can set up channels, or at least inputs for my setup declaratively? I think I will still set the channels with the commands. Something to ask about--what's the best practice.
+#+begin_src nix
+inputs = {
+  nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  home-manager.url = "github:nix-community/home-manager";
+  home-manager.inputs.nixpkgs.follows = "nixpkgs";
+};
+#+end_src
+https://drakerossman.com/blog/how-to-add-home-manager-to-nixos#how-to-add-home-manager-to-your-system
+⬆️ this is where the discourse link above comes in. instead of declaring  homemanager stuff in flake.nix directly, I can use this line to declare it in a home.nix file instead.
+=home-manager.users.jdoe = import ./home.nix;=
+I now feel like the best thing to do may be to just start with the 'standard' config here: https://github.com/Misterio77/nix-starter-configs/blob/main/standard/nixos/configuration.nix
+
+**** TODO Configure VPN Autoconnect/Auto-reconnect
+ensureProfiles might be the way: https://nixos.org/manual/nixos/stable/options#opt-networking.networkmanager.ensureProfiles.profiles
+**** KILL Switch to unstable channel
+Normal way: (see examples) https://nix.dev/manual/nix/2.22/command-ref/nix-channel
+Declarative: Oddly, it's not that easy to just declare the channel you wnat to use. There's a SO post explaining something that worked though. Question https://stackoverflow.com/questions/48831392/how-to-add-nixos-unstable-channel-declaratively-in-configuration-nix
+- I am going to leave this for now, but I need to use:
+  - nixpkgs unstable
+  - nixos unstable
+
+**** TODO Improve Sway Config
 Currently I have to log into a tty and then manually start sway.
-**** I would like a greeter + autostart.
-**** I have no idea if swayidle works rn.
-**** Swaylock is fine for now but I would prefer either something else or to customize it so it isn't blinding white lol
-**** Sway windows have no gaps. That's not how it is on my laptop so it's something to look into.
-*** DONE Install Zig?
+***** I would like a greeter + autostart.
+***** I have no idea if swayidle works rn.
+***** Swaylock is fine for now but I would prefer either something else or to customize it so it isn't blinding white lol
+***** Sway windows have no gaps. That's not how it is on my laptop so it's something to look into.
+**** TODO Install Zig?
 Nvim complained about not having a C compiler, installing zig is usually my move lol.
-*** HOLD Set Brave as default browser?
+**** KILL Set Brave as default browser?
 Appears to be something I need Home Manager for.
 Might actually switch back to FF if it has a better configuration story, which it looks like it does on Nix/Home Manager.
-*** DONE Install More Programs (potentially more complex)
+**** TODO Install More Programs (potentially more complex)
 - Docker
 - VS Code
 - Logseq
@@ -192,18 +225,46 @@ Might actually switch back to FF if it has a better configuration story, which i
 - Bitwarden
 - 1Password
   + 1Password CLI/SSH AgentVagrant
-*** HOLD Install Vagrant...can I customize the provider (vmware?)
-*** TODO Install More Utils
+**** HOLD Install Vagrant...can I customize the provider (vmware?)
+**** HOLD Install Docker
+**** TODO Set up restic backups
+**** TODO Install More Utils
 - Programs like ==locate== aren't present on the system, maybe I have to install coreutils?
 
-*** HOLD Wallpaper?
+**** TODO Wallpaper?
 Find a way to get a decent wallpaper automatically configured.
 Probly need home manager.
-*** HOLD Set Kitty theme
-Home manager again: programs.kitty.theme
+example:
+https://github.com/nmasur/dotfiles/blob/b282e76be4606d9f2fecc06d2dc8e58d5e3514be/flake.nix#L38-L42
 
+**** TODO Set Kitty theme
+Home manager again: =programs.kitty.theme=
+**** TODO Flakes for specific programs:
+- firefox
+- fish
+- nvim
+- emacs?
+- kitty
+- sway
+**** TODO SSH config
 * Roadmap
-Do everything like a basic bitch in configuration.nix (as far as possible) -> Start using home-manager -> Enable flakes -> Modularize config into flakes
-
+Start with HM and flakes right off the bat. Document what i think is the easiest path and what i learn in here...then clean up and produce a coherent version of this document
 
 ---
+* Documentation/Blog Posts
+I think there are a few main things:
+- I would like to show a full diff of what i'm discussing adding each time somehow
+- nix-shell for access to vim early on
+- Explain config file format/lang
+- Enable flakes and home manager first, go from there
+
+---
+
+* Install Notes
+** Choices:
+I'm going to use Budgie on my desktop since I like it, and I will keep my laptop on Sway.
+Desktop first.
+** Steps:
+*** Run thru install
+*** Use nix-shell to get access to vim for easier config on sway/minimal install
+*** Init starter config

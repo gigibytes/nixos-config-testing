@@ -3,6 +3,7 @@
 TIL log + helpful resources reference for Nix(mainly NixOS right now)
 
 * Documentation/Help Sources
+
 ** ==nix help==
 Get to the manual within NixOS
 ** Option Searches
@@ -10,6 +11,19 @@ Find what is configurable and how to do it.
 - NixOS official site option search
 - Home Manager: https://home-manager-options.extranix.com/
 - MyNixOs
+** TLDR pages for Nix-related commands
+https://tldr.inbrowser.app/pages/common/nix
+** Nix Manual @ nix.dev
+https://nix.dev/manual/nix/2.22/command-ref/nix-channel
+** Ubuntu vs. Nix Table
+https://wiki.nixos.org/wiki/Ubuntu_vs._NixOS
+** How to convert Default NixOS to NixOS w/ Flakes + Practical NixOS book
+https://drakerossman.com/blog/how-to-add-home-manager-to-nixos
+** NixOS Example Configs with Comparison Table
+https://nixos.wiki/wiki/Comparison_of_NixOS_setups
+** Base/Starter Configs
+https://github.com/Misterio77/nix-starter-configs/blob/main/standard/nixos/configuration.nix
+
 * Commands
 ** ==nix show flake==
 Get the names that you can use when trying to rebuild from a flake. Example:
