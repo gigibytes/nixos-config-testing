@@ -1,0 +1,30 @@
+#+title: Install
+
+* Laptop
+- Open search.nixos.org for easy use.
+- I want vim right away. Run =nix-shell -p neovim=
+- Actually, I need internet. =nmcli --ask device wifi connect "hrouter_mkii"=
+  - =cd /etc/nixos/=, =sudo nvim configuration.nix=, add packages =neovim= and =git= under users.users.gigi.packages, between the square brackets []
+- Now, get the standard starter config with =git clone=
+  I moved the original files into a folder called =original= for now, and then copied =standard= from nix-starter-configs to =/etc/nixos= (so copy it one level up)
+** Edit Configuration.nix
+- Enable flakes
+  i do not know why it kept letting me 'use' a flake without them enabled in my config.
+- Add home config module so updating system with nixos-rebuild also runs home-manager config updates
+
+** Flake Configuration
+- Open flake.nix in neovim and follow the 'FIXME's. My hostname is 'thinky' for this machine, so I'm using that.
+
+*** Change the input urls.
+
+*** Copy the files from the 'original' folder into the standard/nixos folder.
+
+*** Ignore the modules folder. Go to the home-manager folder and open home.nix, and follow the TODOs.
+  - Start adding packages to the home.packages array. Open home-manager option search to get what you want.
+**** TODO Example needed.
+
+*** When done, run =sudo nixos-rebuild switch flake .#thinky=
+** Modularize Config: Import other .nix files into home.nix (main Home Manager file)
+** Apply specific configurations to programs
+Optional. You may choose to just keep using dotfiles. I am going all in actually, and converting as much as I can to use nix configs instead. I don't want things split though; i.e., most of a config in Nix and small bits in a dotfile. One thing to note here is that the dotfile is more portable.
+- Home Manager options search + checking examples (click) is crucial

@@ -199,14 +199,14 @@ I now feel like the best thing to do may be to just start with the 'standard' co
 
 **** TODO Configure VPN Autoconnect/Auto-reconnect
 ensureProfiles might be the way: https://nixos.org/manual/nixos/stable/options#opt-networking.networkmanager.ensureProfiles.profiles
-**** KILL Switch to unstable channel
+**** DONE Switch to unstable channel
 Normal way: (see examples) https://nix.dev/manual/nix/2.22/command-ref/nix-channel
 Declarative: Oddly, it's not that easy to just declare the channel you wnat to use. There's a SO post explaining something that worked though. Question https://stackoverflow.com/questions/48831392/how-to-add-nixos-unstable-channel-declaratively-in-configuration-nix
 - I am going to leave this for now, but I need to use:
   - nixpkgs unstable
   - nixos unstable
 
-**** TODO Improve Sway Config
+**** TODO Sway Config
 Currently I have to log into a tty and then manually start sway.
 ***** I would like a greeter + autostart.
 ***** I have no idea if swayidle works rn.
@@ -224,28 +224,27 @@ Might actually switch back to FF if it has a better configuration story, which i
 - Freetube
 - Bitwarden
 - 1Password
-  + 1Password CLI/SSH AgentVagrant
+  + 1Password CLI/SSH Agent
+
 **** HOLD Install Vagrant...can I customize the provider (vmware?)
 **** HOLD Install Docker
 **** TODO Set up restic backups
-**** TODO Install More Utils
-- Programs like ==locate== aren't present on the system, maybe I have to install coreutils?
-
 **** TODO Wallpaper?
 Find a way to get a decent wallpaper automatically configured.
 Probly need home manager.
 example:
 https://github.com/nmasur/dotfiles/blob/b282e76be4606d9f2fecc06d2dc8e58d5e3514be/flake.nix#L38-L42
 
-**** TODO Set Kitty theme
-Home manager again: =programs.kitty.theme=
-**** TODO Flakes for specific programs:
+**** DONE Set Kitty theme
+I made a kitty.nix module and import that into home.nix
+**** TODO Modules for specific programs:
 - firefox
 - fish
 - nvim
 - emacs?
-- kitty
-- sway
+- coreutils/utlities i expect
+- fonts
+
 **** TODO SSH config
 * Roadmap
 Start with HM and flakes right off the bat. Document what i think is the easiest path and what i learn in here...then clean up and produce a coherent version of this document
@@ -268,3 +267,28 @@ Desktop first.
 *** Run thru install
 *** Use nix-shell to get access to vim for easier config on sway/minimal install
 *** Init starter config
+** Errors:
+*** I ran nixos-rebuild and got a systemd oom service start error, and it doesn't seem to have built any of the things i configured..
+Now it doesn't error but still, when i rebuild i just get nothing. No sway, no fish, etc.
+I think this is because configuration.nix is the original.
+Okay, i have made a lot of edits but i still can't get the home-manager config to "apply". Still no actual errors from flake.nix each time i try.
+May be because i'm using "standalone" approach and not module? https://discourse.nixos.org/t/flake-not-running-home-manager/22863/3
+https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module
+
+Once i followed the config here it started to work and I just had some issues to sort out.
+https://nixos-and-flakes.thiscute.world/nixos-with-flakes/start-using-home-manager
+
+*** Complaint: a lot of things seem to happen and then error out. Isn't the point of the functional language, etc., so that these things are caught before hand?
+*** Made a new flake and kept getting 'kitty.nix' not found -- it wasn't added to the git repo.
+*** Annoyance: sudo/user ownership...can i take ownership of the /etc/nixos dir?
+**** TODO look into best ways of managing the config files.
+** Results after first session (Laptop):
+After more nix-frustration, I finally have it 'cracked' and can move ahead faster with finishing configuration.
+There are some niggles, like: what do I want to use dotfiles for, what do I want to turn into nix-based configuration?
+At any rate, I can launch sway and I have defaults on everything. Sway does not launch automatically, and everything is still really barebones.
+- I mostly need:
+  - To configure sway and friends
+  - Finish installing programs
+  - Configure/fine-tune other program configs
+  - Configure automation/services
+Also, small note. Helix is probably the nicest editor to use with a minimal nix install--neovim doesn't really support the nix format out of the box, helix does. I think i'll recommend it just for that. I do have a helix.nix now because of this very reason. Honestly might bite the bullet and just use it over neovim personally.
