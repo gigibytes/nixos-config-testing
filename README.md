@@ -1,14 +1,4 @@
-For my latest attempt at using NixOS for my personal workstation.
+Repo for my attempts at working out the NixOS config that I want.
 
-# TODO
-- [ ] configure fish as interactive shell
-- [ ] complete program installs
-- [ ] install window manager and friends
-- [ ] configure sway
-- [ ] configure waybar
-- [ ] configure rofi
-- [ ] configure Emacs
-- [ ] figure out if i need GNU Stow (probably?)
-- [ ] configure nvim
-- [ ] configure vpn
-- [ ] configure auto-updates
+Currently working on configuring home manager + flakes configs for my laptop and desktop.
+
