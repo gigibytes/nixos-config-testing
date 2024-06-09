@@ -130,6 +130,13 @@ in
       helix      
       stow
       brave	
+      logseq
+      vscode
+      freetube
+      _1password-gui-beta
+      _1password #cli
+      bitwarden
+      emacs
     ];
   };
 
@@ -152,13 +159,6 @@ in
     git
     zoxide
     eza
-    logseq
-    vscode
-    freetube
-    _1password-gui-beta
-    _1password #cli
-    bitwarden
-    emacs
   ];
 
   programs.fish.enable = true;
