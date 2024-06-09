@@ -50,39 +50,46 @@ in
   };
 
   # Enable the X11 windowing system.
-  # services.xserver.enable = true;
+  services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
   # services.xserver.desktopManager.gnome.enable = true;
+
+  # Enable Budgie DE
+  services.xserver.desktopManager.budgie.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
+  
   # this is from the nixos wiki sway article
-  services.gnome.gnome-keyring.enable = true;
+  # services.gnome.gnome-keyring.enable = true;
 
   # this came from a github gist
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    extraPackages = with pkgs; [
-      swaylock
-      swayidle
-      wl-clipboard
-      wf-recorder
-      mako
-      grim
-      slurp
-      kitty
-      rofi
-    ];
-    extraSessionCommands = ''
-      export SDL_VIDEODRIVER=wayland
-      export QT_QPA_PLATFORM=wayland
-      export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-      export _JAWA_AWT_WM_NONREPARENTING=1
-      export MOZ_ENABLE_WAYLAND=1
-    '';
-  };
+  # Enable sway and company
+  # programs.sway = {
+  #   enable = true;
+  #   wrapperFeatures.gtk = true;
+  #   extraPackages = with pkgs; [
+  #     swaylock
+  #     swayidle
+  #     wl-clipboard
+  #     wf-recorder
+  #     mako
+  #     foot
+  #     grim
+  #     slurp
+  #     kitty
+  #     rofi
+  #   ];
+  #   extraSessionCommands = ''
+  #     export SDL_VIDEODRIVER=wayland
+  #     export QT_QPA_PLATFORM=wayland
+  #     export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+  #     export _JAWA_AWT_WM_NONREPARENTING=1
+  #     export MOZ_ENABLE_WAYLAND=1
+  #   '';
+  # };
 
-  programs.waybar.enable = true;
+  # programs.waybar.enable = true;
 
  # Configure keymap in X11
   services.xserver = { layout = "us";
@@ -119,12 +126,10 @@ in
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.fish; #attempt to set fish as my interactive shell. idk if it does this properly--the wiki page doesn't even mention the shell option.
     packages = with pkgs; [
-    #  thunderbird
-	stow
-	starship
-        #TODO emacs (doom)
-        brave
-	
+      kitty
+      helix      
+      stow
+      brave	
     ];
   };
 
@@ -134,9 +139,6 @@ in
     iosevka
     nerdfonts
   ];
-
-  # Docker Install
-  virtualisation.docker.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -150,8 +152,6 @@ in
     git
     zoxide
     eza
-    #TODO vagrant?
-    # GUI programs
     logseq
     vscode
     freetube
@@ -162,9 +162,9 @@ in
   ];
 
   programs.fish.enable = true;
-
-  programs.neovim.defaultEditor = true;
   programs.neovim.enable = true;
+  programs.helix.defaultEditor = true;
+  programs.helix.settings = { theme = "flatwhite"; };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
