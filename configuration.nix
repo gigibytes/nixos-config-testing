@@ -163,8 +163,6 @@ in
 
   programs.fish.enable = true;
   programs.neovim.enable = true;
-  programs.helix.defaultEditor = true;
-  programs.helix.settings = { theme = "flatwhite"; };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
