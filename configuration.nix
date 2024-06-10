@@ -139,6 +139,7 @@ in
       bitwarden
       emacs
       fastfetch
+      eww
     ];
   };
 
