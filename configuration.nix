@@ -89,7 +89,7 @@ in
   #   '';
   # };
 
-  # programs.waybar.enable = true;
+  programs.waybar.enable = true;
 
  # Configure keymap in X11
   services.xserver = { layout = "us";
@@ -127,6 +127,7 @@ in
     shell = pkgs.fish; #attempt to set fish as my interactive shell. idk if it does this properly--the wiki page doesn't even mention the shell option.
     packages = with pkgs; [
       kitty
+      foot
       helix      
       stow
       brave	
