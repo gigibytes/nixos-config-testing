@@ -50,15 +50,15 @@ in
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  # services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
   # services.xserver.displayManager.gdm.enable = true;
   # services.xserver.desktopManager.gnome.enable = true;
 
-  # Enable Budgie DE
-  services.xserver.desktopManager.budgie.enable = true;
-  services.xserver.displayManager.lightdm.enable = true;
+  # Enable KDE
+  # services.desktopManager.plasma6.enable = true;
+  # services.displayManager.sddm.enable = true;
   
   # this is from the nixos wiki sway article
   # services.gnome.gnome-keyring.enable = true;
@@ -163,7 +163,10 @@ in
 
   programs.fish.enable = true;
   programs.neovim.enable = true;
-
+  # Quick LabWC test
+  programs.labwc.enable = true;
+  # should i enable some display manager or something?
+  
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
