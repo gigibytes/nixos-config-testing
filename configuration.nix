@@ -17,6 +17,10 @@ in
       (import "${home-manager}/nixos")
     ];
 
+  # Experimental Features
+  nix.extraOptions = ''
+  experimental-features = nix-command
+  '';
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -129,6 +133,7 @@ in
     packages = with pkgs; [
       kitty
       nb
+      gh
       helix      
       stow
       brave	
