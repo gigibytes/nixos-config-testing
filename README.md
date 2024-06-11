@@ -1,6 +1,6 @@
 Repo for my attempts at working out the NixOS config(s) that I want.
 
-Currently working on configuring home manager + flakes configs for my laptop and desktop.
+Currently working on configuring home manager + flakes configs for my laptop and desktop. Active folders are the *-testing subfolders, 'old' is shockingly not used and just kept as a reference for now.
 
 ## Desktop
 Currently actually using neither home-manager nor flakes.
