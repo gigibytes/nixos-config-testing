@@ -8,7 +8,7 @@ Started as a small list but I guess this is also now a log of me trying to make 
 
 * Automatic Updates
 Ideally: as easy or easier than on Fedora, meaning I don't really want to have to make my own systemd service or somesuch.
-snippet from: https://nixos.wiki/wiki/Automatic_system_upgrades
+snippet from: https://wiki.nixos.org/wiki/Automatic_system_upgrades
 
 #+begin_src nix
 system.autoUpgrade = {
@@ -82,7 +82,7 @@ Search param: ==wireguard==
 *** Interesting...I'm just going to look for an example.
 Example blog post: https://alberand.com/nixos-wireguard-vpn.html
 
-Example from the NixOS wiki @ https://nixos.wiki/wiki/WireGuard:
+Example from the NixOS wiki @ https://wiki.nixos.org/wiki/WireGuard:
 **** This example uses wg-quick, but like the above blog mentions, there are options that use NetworkManager or systemd-networkd
 #+begin_src nix
 {

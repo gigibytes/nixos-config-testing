@@ -20,7 +20,7 @@ https://wiki.nixos.org/wiki/Ubuntu_vs._NixOS
 ** How to convert Default NixOS to NixOS w/ Flakes + Practical NixOS book
 https://drakerossman.com/blog/how-to-add-home-manager-to-nixos
 ** NixOS Example Configs with Comparison Table
-https://nixos.wiki/wiki/Comparison_of_NixOS_setups
+https://wiki.nixos.org/wiki/Comparison_of_NixOS_setups
 ** Base/Starter Configs
 https://github.com/Misterio77/nix-starter-configs/blob/main/standard/nixos/configuration.nix
 
